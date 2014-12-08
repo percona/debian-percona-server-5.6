@@ -1,0 +1,3 @@
+scripts__mysqld_safe.sh__signals.patch
+fix_standalone_tests.patch
+fix_mysqlhotcopy_tests.patch
