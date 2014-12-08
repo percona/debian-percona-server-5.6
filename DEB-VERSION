@@ -1,0 +1,8 @@
+MYSQL_VERSION_MAJOR=5
+MYSQL_VERSION_MINOR=6
+MYSQL_VERSION_PATCH=21
+MYSQL_VERSION_EXTRA=70.1
+PERCONA_SERVER_FULLNAME=percona-server-5.6.21-70.1
+PERCONA_SERVER_DEBNAME=percona-server-5.6_5.6.21-rel70.1
+BZR_REVISION=698
+HTTP_LOCATION=http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-70.1.tar.gz
