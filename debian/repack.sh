@@ -71,7 +71,7 @@ cd ${WORKING_DIR}
 
 # Find the source tarball
 if [ ! -e "${SOURCE_TAR_FILE}" ] || [ ! -f "${SOURCE_TAR_FILE}" ]; then
-  echo "ERROR : No result source tar file \"${SOURCE_TAR_FILE}\" found."
+  echo "ERROR : No source tar file \"${SOURCE_TAR_FILE}\" found."
   exit 1
 fi
 SOURCE_TAR_DIR=$(basename ${SOURCE_TAR_FILE%".tar.gz"})
@@ -83,7 +83,7 @@ fi
 tar -xzf ${SOURCE_TAR_FILE}
 
 if [ ! -d "${SOURCE_TAR_DIR}" ]; then
-	echo "ERROR : Directory \"${SOURCE_TAR_DIR}\" not found after extracting \"${SOURCE_TAR}\""
+	echo "ERROR : Directory \"${SOURCE_TAR_DIR}\" not found after extracting \"${SOURCE_TAR_FILE}\""
 	exit 1
 fi
 

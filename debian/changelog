@@ -1,23 +1,5 @@
 percona-server-5.6 (5.6.21-rel70.1-1) unstable; urgency=medium
 
-  * New upstream version.
-  * Removed percona-server-client and libperconaserverclient packages and files
-    and repointed dependencies to mysql-client-5.6.
-  * Added mysqlhotcopy patch to correct test case that is fails on Utopic.
-
- -- George Ormond Lorch III <george.lorch@percona.com>  Thu, 20 Nov 2014 12:11:37 -0700
-
-percona-server-5.6 (5.6.17-rel66.0-2) unstable; urgency=medium
-
-  * Fixed lintian-overrides for percona-server-server and percona-server-client.
-  * Removed empty percona-server-common package and repointed dependencies
-    to mysql-common.
-  * Removed unnecessary/empty files from packaging source.
-
- -- George Ormond Lorch III <george.lorch@percona.com>  Tue, 09 Sep 2014 08:55:30 -0700
-
-percona-server-5.6 (5.6.17-rel66.0-1) unstable; urgency=medium
-
   * Initial release (Closes: #757045).
 
- -- George Ormond Lorch III <george.lorch@percona.com>  Mon, 21 Jul 2014 11:34:04 -0700
+ -- George Ormond Lorch III <george.lorch@percona.com>  Thu, 20 Nov 2014 12:11:37 -0700
