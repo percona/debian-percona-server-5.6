@@ -3,9 +3,11 @@
 export DH_VERBOSE=1
 export DEB_BUILD_HARDENING=1
 
+include DEB-VERSION
+
 PACKAGE=percona-server-5.6
-PS_VERSION_EXTRA = '@@PERCONA_VERSION_EXTRA@@'
-REVISION = '@@REVISION@@'
+PS_VERSION_EXTRA = $(MYSQL_VERSION_EXTRA)
+REVISION = $(BZR_REVISION)
 COMPILATION_COMMENT_RELEASE = "Percona Server (GPL), Release $(PS_VERSION_EXTRA), Revision $(REVISION)"
 
 TMP=$(CURDIR)/debian/tmp/
@@ -53,6 +55,7 @@ builddir = builddir
 configure: patch configure-stamp
 
 configure-stamp:
+	@echo "VERSION FILE $(MYSQL_VERSION_MAJOR).$(MYSQL_VERSION_MINOR).$(MYSQL_VERSION_PATCH)-$(MYSQL_VERSION_EXTRA)"
 	@echo "RULES.$@"
 	dh_testdir
 
