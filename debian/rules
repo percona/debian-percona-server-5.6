@@ -5,7 +5,6 @@ export DEB_BUILD_HARDENING=1
 
 include DEB-VERSION
 
-
 TMP=$(CURDIR)/debian/tmp/
 
 ARCH = $(shell dpkg-architecture -qDEB_BUILD_ARCH)
@@ -57,8 +56,6 @@ configure-stamp:
 ifneq ($(ARCH_OS),hurd)
 	if [ ! -d /proc/self ]; then echo "/proc IS NEEDED" 1>&2; exit 1; fi 
 endif
-
-	[ ! -d python-for-subunit2junitxml ] || rm -rf python-for-subunit2junitxml
 
 	( test -d $(builddir) || mkdir $(builddir) ) && cd $(builddir) && \
 	sh -c  'PATH=$${MYSQL_BUILD_PATH:-"/bin:/usr/bin"} \
