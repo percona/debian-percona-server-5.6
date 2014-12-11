@@ -5,13 +5,8 @@ export DEB_BUILD_HARDENING=1
 
 include DEB-VERSION
 
-PACKAGE=percona-server-5.6
-PS_VERSION_EXTRA = $(MYSQL_VERSION_EXTRA)
-REVISION = $(BZR_REVISION)
-COMPILATION_COMMENT_RELEASE = "Percona Server (GPL), Release $(PS_VERSION_EXTRA), Revision $(REVISION)"
 
 TMP=$(CURDIR)/debian/tmp/
-prefix=/usr
 
 ARCH = $(shell dpkg-architecture -qDEB_BUILD_ARCH)
 ARCH_OS = $(shell dpkg-architecture -qDEB_BUILD_ARCH_OS)
@@ -33,7 +28,7 @@ EXPORTED_SOURCE_TARBALL = debian/percona-server-source-5.6.tar.gz
 
 DISTRIBUTION = $(shell lsb_release -i -s)
 
-MYSQL_SRC = $(shell pwd)
+COMPILATION_COMMENT_RELEASE = "Percona Server (GPL), Release $(MYSQL_VERSION_EXTRA), Revision $(BZR_REVISION)"
 
 MAKE_TEST_TARGET=test-mtr
 ifneq ($(findstring fulltest,$(DEB_BUILD_OPTIONS)),)
