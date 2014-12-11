@@ -1,0 +1,2 @@
+debian/additions/percona-server.cnf etc/mysql
+debian/additions/percona-server.conf.d etc/mysql
