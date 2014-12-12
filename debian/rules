@@ -184,7 +184,9 @@ install: build
 	       $(TMP)/usr/share/mysql/binary-configure
 	nm -n $(builddir)/sql/mysqld |gzip -9 > $(TMP)/usr/share/doc/percona-server-5.6/mysqld.sym.gz
 	# FIXME install -m 0755 debian/additions/echo_stderr $(TMP)/usr/share/mysql/
-
+	mkdir -p $(TMP)/etc/mysql/percona-server
+	install -m 0755 debian/additions/debian-start $(TMP)/etc/mysql/percona-server
+	install -m 0755 debian/additions/debian-start.inc.sh $(TMP)/usr/share/mysql/
 	# install AppArmor profile
 	# FIXME install -D -m 644 debian/apparmor-profile $(TMP)/etc/apparmor.d/usr.sbin.mysqld
 	# install Apport hook
