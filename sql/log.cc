@@ -37,6 +37,8 @@
 #include "sql_acl.h"            // SUPER_ACL
 #include "sql_audit.h"
 #include "mysql/service_my_plugin_log.h"
+#include "sp_rcontext.h"
+#include "sp_head.h"
 
 #include <my_dir.h>
 #include <stdarg.h>
@@ -1648,7 +1650,7 @@ bool MYSQL_LOG::open(
   DBUG_RETURN(0);
 
 err:
-  if (log_type == LOG_BIN && binlogging_impossible_mode == ABORT_SERVER)
+  if (log_type == LOG_BIN && binlog_error_action == ABORT_SERVER)
   {
     THD *thd= current_thd;
     /*
@@ -2084,6 +2086,13 @@ bool MYSQL_QUERY_LOG::write(THD *thd, ulonglong current_utime,
     }
     if (my_b_write(&log_file, (uchar*) "\n", 1))
         tmp_errno= errno;
+
+    if (opt_log_slow_sp_statements &&
+        thd->sp_runtime_ctx &&
+        my_b_printf(&log_file,
+                    "# Stored routine: %s\n",
+                    thd->sp_runtime_ctx->sp->m_qname.str) == (uint) -1)
+      tmp_errno= errno;
 
 #if defined(ENABLED_PROFILING)
     thd->profiling.print_current(&log_file);
