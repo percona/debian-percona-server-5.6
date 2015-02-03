@@ -1,5 +1,5 @@
-percona-server-5.6 (5.6.21-rel70.1-1) unstable; urgency=medium
+percona-server-5.6 (5.6.22-rel71.0-1) unstable; urgency=medium
 
   * Initial release (Closes: #757045).
 
- -- George Ormond Lorch III <george.lorch@percona.com>  Thu, 20 Nov 2014 12:11:37 -0700
+ -- George Ormond Lorch III <george.lorch@percona.com>  Tue, 03 Feb 2015 12:11:37 -0700
