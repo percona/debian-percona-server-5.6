@@ -5846,9 +5846,21 @@ static bool fill_alter_inplace_info(THD *thd,
         ha_alter_info->handler_flags|= Alter_inplace_info::ALTER_COLUMN_TYPE;
       }
 
+      bool field_renamed;
+      /*
+        InnoDB data dictionary is case sensitive so we should use
+        string case sensitive comparison between fields.
+        Note: strcmp branch is to be removed in future when we fix it
+        in InnoDB.
+      */
+      if (ha_alter_info->create_info->db_type->db_type == DB_TYPE_INNODB)
+        field_renamed= strcmp(field->field_name, new_field->field_name);
+      else
+	field_renamed= my_strcasecmp(system_charset_info, field->field_name,
+                                     new_field->field_name);
+
       /* Check if field was renamed */
-      if (my_strcasecmp(system_charset_info, field->field_name,
-                        new_field->field_name))
+      if (field_renamed)
       {
         field->flags|= FIELD_IS_RENAMED;
         ha_alter_info->handler_flags|= Alter_inplace_info::ALTER_COLUMN_NAME;
@@ -8255,6 +8267,18 @@ bool mysql_alter_table(THD *thd,char *new_db, char *new_name,
   }
 
   /*
+   If foreign key is added then check permission to access parent table.
+
+   In function "check_fk_parent_table_access", create_info->db_type is used
+   to identify whether engine supports FK constraint or not. Since
+   create_info->db_type is set here, check to parent table access is delayed
+   till this point for the alter operation.
+  */
+  if ((alter_info->flags & Alter_info::ADD_FOREIGN_KEY) &&
+      check_fk_parent_table_access(thd, create_info, alter_info))
+    DBUG_RETURN(true);
+
+  /*
    If this is an ALTER TABLE and no explicit row type specified reuse
    the table's row type.
    Note : this is the same as if the row type was specified explicitly.
@@ -8548,6 +8572,8 @@ bool mysql_alter_table(THD *thd,char *new_db, char *new_name,
                                              alter_ctx.tmp_name,
                                              true, false)))
       goto err_new_table_cleanup;
+
+    DEBUG_SYNC(thd, "after_open_altered_table");
 
     /* Set markers for fields in TABLE object for altered table. */
     update_altered_table(ha_alter_info, altered_table);
