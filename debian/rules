@@ -70,6 +70,7 @@ endif
 		-DWITH_LIBWRAP=ON \
 		-DWITH_ZLIB=system \
 		-DWITH_SSL=system \
+		-DWITH_LIBEVENT=system \
 		-DCOMPILATION_COMMENT=$(COMPILATION_COMMENT_RELEASE) \
 		-DSYSTEM_TYPE="debian-linux-gnu" \
 		-DINSTALL_LAYOUT=RPM \
